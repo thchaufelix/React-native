@@ -2,7 +2,6 @@ import * as React from "react";
 import {SafeAreaView, Alert, TouchableHighlight} from 'react-native';
 import {Divider, Layout, TopNavigation, Text, Button, Icon} from '@ui-kitten/components';
 
-import ReactNativeBiometrics from 'react-native-biometrics'
 
 const FacebookIcon = (props) => (
   <Icon name='home' {...props} />
@@ -12,20 +11,6 @@ export default function HomeScreen({navigation}) {
 
   const onPressHandler = () => {
     console.log("updated")
-    ReactNativeBiometrics.isSensorAvailable()
-      .then((resultObject) => {
-        const {available, biometryType} = resultObject
-
-        if (available && biometryType === ReactNativeBiometrics.TouchID) {
-          console.log('TouchID is supported')
-        } else if (available && biometryType === ReactNativeBiometrics.FaceID) {
-          console.log('FaceID is supported')
-        } else if (available && biometryType === ReactNativeBiometrics.Biometrics) {
-          console.log('Biometrics is supported')
-        } else {
-          console.log('Biometrics not supported')
-        }
-      })
   }
 
   return (
