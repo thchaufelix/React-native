@@ -1,0 +1,50 @@
+import * as React from "react";
+import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import HomeScreen from '../screens/homeScreen'
+import SettingsScreen from "../screens/settingScreen";
+import {BottomNavigation, BottomNavigationTab, TabBar, Tab, Button, Text, Icon} from '@ui-kitten/components';
+import Page1 from "../screens/page1";
+import Page2 from "../screens/page2";
+import Page3 from "../screens/page3";
+
+const Tag1 = (props) => (
+  <Icon name='home' {...props} />
+);
+
+const Tag2 = (props) => (
+  <Icon name='text' {...props} />
+);
+
+const {Navigator, Screen} = createMaterialTopTabNavigator();
+
+const BottomTabBar = ({navigation, state}) => (
+  <BottomNavigation
+    selectedIndex={state.index}
+    onSelect={index => navigation.navigate(state.routeNames[index])}>
+    <BottomNavigationTab title='Home' icon={Tag1}/>
+    <BottomNavigationTab title='Details' icon={Tag2}/>
+  </BottomNavigation>
+);
+
+const TopTabBar = ({navigation, state}) => (
+  <TabBar style={{paddingTop: 30}}
+          selectedIndex={state.index}
+          onSelect={index => navigation.navigate(state.routeNames[index])}>
+    <Tab title='Home'/>
+    <Tab title='page 1'/>
+    <Tab title='page 2'/>
+    <Tab title='page 3'/>
+  </TabBar>
+);
+
+export default function HomeTopTabs() {
+  return (
+    <Navigator tabBar={props => <TopTabBar {...props} />}>
+      <Screen name="Home" component={HomeScreen} />
+      <Screen name="page 1" component={Page1} />
+      <Screen name="page 2" component={Page2} />
+      <Screen name="page 3" component={Page3} />
+    </Navigator>
+  );
+}
+
