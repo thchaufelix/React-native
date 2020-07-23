@@ -2,7 +2,6 @@ import * as React from "react";
 import {SafeAreaView, Alert, TouchableHighlight} from 'react-native';
 import {Divider, Layout, TopNavigation, Text, Button, Icon} from '@ui-kitten/components';
 
-
 const FacebookIcon = (props) => (
   <Icon name='home' {...props} />
 );
