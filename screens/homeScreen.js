@@ -1,6 +1,6 @@
 import * as React from "react";
 import {SafeAreaView, Alert, TouchableHighlight} from 'react-native';
-import {Divider, Layout, TopNavigation, Text, Button, Icon} from '@ui-kitten/components';
+import {Divider, Layout, Text, Button, Icon} from '@ui-kitten/components';
 
 const FacebookIcon = (props) => (
   <Icon name='home' {...props} />
@@ -15,7 +15,7 @@ export default function HomeScreen({navigation}) {
   return (
     <SafeAreaView style={{flex: 1}}>
       {/*<TopNavigation title='MyApp' alignment='center'/>*/}
-      <Divider/>
+      {/*<Divider/>*/}
       <Layout style={{flex: 4, justifyContent: 'center', alignItems: 'center'}}>
         <Text style={{marginBottom: 30}} category='h1'>Home!</Text>
         <Button

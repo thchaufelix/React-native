@@ -1,8 +1,7 @@
 import * as React from "react";
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import HomeScreen from '../screens/homeScreen'
-import SettingsScreen from "../screens/settingScreen";
-import {BottomNavigation, BottomNavigationTab, TabBar, Tab, Button, Text, Icon} from '@ui-kitten/components';
+import {TabBar, Tab, Icon,} from '@ui-kitten/components';
 import Page1 from "../screens/page1";
 import Page2 from "../screens/page2";
 import Page3 from "../screens/page3";
@@ -17,17 +16,8 @@ const Tag2 = (props) => (
 
 const {Navigator, Screen} = createMaterialTopTabNavigator();
 
-const BottomTabBar = ({navigation, state}) => (
-  <BottomNavigation
-    selectedIndex={state.index}
-    onSelect={index => navigation.navigate(state.routeNames[index])}>
-    <BottomNavigationTab title='Home' icon={Tag1}/>
-    <BottomNavigationTab title='Details' icon={Tag2}/>
-  </BottomNavigation>
-);
-
 const TopTabBar = ({navigation, state}) => (
-  <TabBar style={{paddingTop: 30}}
+  <TabBar style={{paddingTop: 20}}
           selectedIndex={state.index}
           onSelect={index => navigation.navigate(state.routeNames[index])}>
     <Tab title='Home'/>

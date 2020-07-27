@@ -24,7 +24,6 @@ export default function CCard({items, callback}) {
       <Button
         style={styles.footerControl}
         size='small'
-        // onPress={() => callback.acceptInfo(info.item.id)}
         onPress={() => callback.acceptInfo(info.item.id)}
       >
         ACCEPT

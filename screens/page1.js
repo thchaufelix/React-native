@@ -6,12 +6,12 @@ import CCard from "../components/card";
 export default function Page1() {
 
   const [cardInfo, setCardInfo] = React.useState([
-    {title: "Item 1", status: 'basic', id: '1'},
-    {title: "Item 2", status: 'basic', id: '2'},
-    {title: "Item 3", status: 'basic', id: '3'},
-    {title: "Item 3", status: 'basic', id: '4'},
-    {title: "Item 3", status: 'basic', id: '5'},
-    {title: "Item 3", status: 'basic', id: '6'},
+    {title: "NA/2015/02 ", status: 'basic', id: '1'},
+    {title: "Item 2 ", status: 'basic', id: '2'},
+    {title: "Item 3 ", status: 'basic', id: '3'},
+    {title: "Item 3 ", status: 'basic', id: '4'},
+    {title: "Item 3 ", status: 'basic', id: '5'},
+    {title: "Item 3 ", status: 'basic', id: '6'},
   ])
 
   const acceptInfo = (id) => {
@@ -21,6 +21,7 @@ export default function Page1() {
         let items = [...prevItems];
         let item = {...items[index]};
         item.status = 'success';
+        item.title = item.title.split("-")[0] + "- Accept"
         items[index] = item;
         return items
       }
@@ -34,6 +35,7 @@ export default function Page1() {
         let items = [...prevItems];
         let item = {...items[index]};
         item.status = 'danger';
+        item.title = item.title.split("-")[0] + "- Reject"
         items[index] = item;
         return items
       }

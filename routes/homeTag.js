@@ -24,19 +24,9 @@ const BottomTabBar = ({navigation, state}) => (
   </BottomNavigation>
 );
 
-const TopTabBar = ({navigation, state}) => (
-  <TabBar
-    selectedIndex={state.index}
-    onSelect={index => navigation.navigate(state.routeNames[index])}>
-    <Tab title='USERS'/>
-    <Tab title='ORDERS'/>
-  </TabBar>
-);
-
 export default function HomeTabs() {
   return (
     <Navigator tabBar={props => <BottomTabBar {...props} />}>
-      {/*<Screen name="Home" component={HomeScreen}/>*/}
       <Screen name="Home" component={HomeTopTabs}/>
       <Screen name="Notifications" component={SettingsScreen}/>
     </Navigator>
