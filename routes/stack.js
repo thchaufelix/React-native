@@ -2,15 +2,26 @@
 
 import * as React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
+import {
+  Icon,
+  Button,
+  TopNavigation,
+  Avatar,
+  ApplicationProvider,
+  TopNavigationAction,
+  OverflowMenu, MenuItem, Layout
+} from '@ui-kitten/components';
+import * as eva from "@eva-design/eva";
+import {default as theme} from '../theme.json';
+
 import SignInScreen from '../screens/signIn'
 import RootDrawer from "./drawer";
-import {default as theme} from '../theme.json';
-import {Icon, Button} from '@ui-kitten/components';
-import * as eva from "@eva-design/eva";
 import {AuthContext} from '../contexts/userContext'
 
 const DrawerIcon = (props) => (
-  <Icon name='menu-outline' {...props} />
+  // <Icon name='menu-outline' {...props} />
+  // <Avatar {...props} source={require('../assets/favicon.png')}/>
+  <Avatar {...props} source={require('../assets/music.png')}/>
 );
 
 const Stack = createStackNavigator();
@@ -30,14 +41,32 @@ const config = {
 
 export default function RootStack() {
   const [isLogin, setIsLogin] = React.useState(false);
-  const {isAuthenicated} = React.useContext(AuthContext);
+  const {isAuthenicated, toggleAuth} = React.useContext(AuthContext);
+
+  // const [selectedIndex, setSelectedIndex] = React.useState(null);
+  const [visible, setVisible] = React.useState(false);
+
+  const onItemSelect = (index) => {
+    // setSelectedIndex(index);
+    setVisible(false);
+  };
+
+  const onLogoutPress = ({ index }) => {
+    toggleAuth({userName: '', title: '', isAuthenicated: false})
+    setVisible(false);
+  };
+
+  const renderToggleButton = () => (
+    <TopNavigationAction icon={DrawerIcon} onPress={() => setVisible(true)}/>
+  );
 
   return (
     <Stack.Navigator
-      headerMode={'none'}
+      // headerMode={'screen'}
       screenOptions={{
         headerTintColor: 'white',
-        headerStyle: {backgroundColor: theme["color-primary-700"]},
+        title: 'Cerebro',
+        headerStyle: {backgroundColor: eva.dark["color-basic-700"]},
       }}
     >
       {isAuthenicated ? (
@@ -45,25 +74,25 @@ export default function RootStack() {
           name="Home"
           component={RootDrawer}
           options={({navigation}) => ({
-            title: ' This is Demo App',
-            headerLeft: () => (
-              <Button
-                appearance='ghost'
-                style={{margin: 3}}
-                // variants={'primary'}
-                accessoryLeft={DrawerIcon}
-                onPress={() => navigation.toggleDrawer()}
+            headerRight: () => (
+              < OverflowMenu
+                value={"left"}
+                anchor={renderToggleButton}
+                visible={visible}
+                // selectedIndex={selectedIndex}
+                onSelect={onItemSelect}
+                onBackdropPress={() => setVisible(false)}
               >
-              </Button>
+                {/*<MenuItem title='Home'/>*/}
+                {/*<MenuItem title='Details'/>*/}
+                <MenuItem title='Logout' onPress={onLogoutPress}/>
+              </OverflowMenu>
             ),
           })}
         />
       ) : (
         <Stack.Screen name="SignIn" component={SignInScreen} options={{
-          transitionSpec: {
-            open: config,
-            close: config,
-          },
+          transitionSpec: {open: config, close: config,},
         }}/>
       )}
     </Stack.Navigator>

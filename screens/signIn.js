@@ -1,20 +1,25 @@
 import React, {useState, useContext} from 'react'
-import {TextInput, TouchableWithoutFeedback, Keyboard, StyleSheet} from 'react-native'
+import {TextInput, TouchableWithoutFeedback, Keyboard, StyleSheet, Dimensions} from 'react-native'
 import {AuthContext} from "../contexts/userContext";
 import {Layout, Button, TopNavigationAction, Divider, TopNavigation} from "@ui-kitten/components";
+import axios from 'axios';
+import GlobalStyles from "../globals/styles";
 
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 export default function SignInScreen({navigation}) {
+  const {toggleAuth, userName} = React.useContext(AuthContext);
+
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
-
-  const {toggleAuth} = React.useContext(AuthContext);
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <Layout style={{flex: 1}}>
-        <TopNavigation style={{marginTop: 10}} title='SIGN IN' alignment='center'/>
-        <Divider/>
+        {/*<TopNavigation style={GlobalStyles.header} title='SIGN IN' alignment='center'/>*/}
+        {/*<Divider/>*/}
         <Layout style={styles.container}>
           <TextInput
             style={styles.input}
@@ -33,9 +38,23 @@ export default function SignInScreen({navigation}) {
         <Layout style={styles.buttonContainer}>
           <Button
             style={styles.button}
-            onPress={() => {
-              toggleAuth({userName: username, title: 'tester', isAuthenicated: true})
-              // navigation.navigate('Home')
+            onPress={(e) => {
+              e.preventDefault();
+              axios.post("http://10.11.53.136:8000/api-token-auth/", {
+                username: username,
+                password: password
+              })
+                .then((response) => {
+                  toggleAuth({
+                    userName: username,
+                    title: 'tester',
+                    token: response.data.token,
+                    isAuthenicated: true
+                  });
+                }, (error) => {
+                  console.log("login fail");
+                  alert("Wrong Password")
+                });
             }}>Sign in</Button>
         </Layout>
       </Layout>
@@ -45,15 +64,15 @@ export default function SignInScreen({navigation}) {
 
 const styles = StyleSheet.create({
   input: {
-    padding: 20,
+    padding: windowHeight * 0.035,
   },
   button: {},
   container: {
     flex: 3,
-    padding: 50,
+    padding: windowWidth * 0.1,
   },
-  buttonContainer:{
+  buttonContainer: {
     flex: 6,
-    paddingHorizontal: 90,
+    paddingHorizontal: windowWidth * 0.25,
   },
 })

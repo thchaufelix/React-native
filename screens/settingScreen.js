@@ -1,6 +1,7 @@
 import {Keyboard, TextInput, SafeAreaView, TouchableWithoutFeedback, StyleSheet} from "react-native";
 import * as React from "react";
 import {Divider, Layout, TopNavigation, Text, Button, Icon, TopNavigationAction} from '@ui-kitten/components';
+import GlobalStyles from "../globals/styles";
 
 const DrawerIcon = (props) => (
   <Icon name='menu-outline' {...props} />
@@ -20,10 +21,10 @@ export default function SettingsScreen({navigation}) {
 
   return (
     <SafeAreaView style={{flex: 1}}>
-      <TopNavigation style={{marginTop: 0}} title='Detail' alignment='center' accessoryLeft={DrawerAction}/>
-      <Divider/>
+      {/*<TopNavigation style={GlobalStyles.header2} title='Detail' alignment='center' accessoryLeft={DrawerAction}/>*/}
+      {/*<Divider/>*/}
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <Layout style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <Layout style={{flex: 50, justifyContent: 'center', alignItems: 'center'}}>
           <Text appearance={"hint"} style={{marginBottom: 30}} category={"p1"}>{text}</Text>
           <TextInput style={styles.text} multiline onChangeText={setText} value={text}
                      placeholder={"Type Something Here"}/>

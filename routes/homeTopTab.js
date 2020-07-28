@@ -6,18 +6,18 @@ import Page1 from "../screens/page1";
 import Page2 from "../screens/page2";
 import Page3 from "../screens/page3";
 
-const Tag1 = (props) => (
+const HomeIcon = (props) => (
   <Icon name='home' {...props} />
 );
 
-const Tag2 = (props) => (
+const TextIcon = (props) => (
   <Icon name='text' {...props} />
 );
 
 const {Navigator, Screen} = createMaterialTopTabNavigator();
 
 const TopTabBar = ({navigation, state}) => (
-  <TabBar style={{paddingTop: 20}}
+  <TabBar
           selectedIndex={state.index}
           onSelect={index => navigation.navigate(state.routeNames[index])}>
     <Tab title='Home'/>

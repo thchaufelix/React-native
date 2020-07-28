@@ -1,21 +1,17 @@
 import React, {Component, createContext} from "react";
 
-export const AuthContext = createContext()
+export const AuthContext = createContext(undefined, undefined)
 
 class AuthContextProvider extends Component{
   state = {
-    userName: 'tester 1231',
-    title: 'Tester',
-    token: '123abcd',
+    userName: '',
+    title: '',
+    token: '',
     isAuthenicated: false
   }
 
   toggleAuth = (props) => {
-    this.setState({
-      isAuthenicated: props.isAuthenicated,
-      userName: props.userName,
-      title: props.title
-    });
+    this.setState({...props});
   }
 
   render() {

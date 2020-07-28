@@ -2,9 +2,12 @@ import HomeTabs from "./homeTag";
 import SettingsScreen from "../screens/settingScreen";
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import * as React from "react";
-import {StyleSheet} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
 import {Drawer, DrawerItem, Layout, Avatar, IndexPath, MenuItem, Icon, Text} from '@ui-kitten/components';
 import {AuthContext} from "../contexts/userContext";
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 const InfoIcon = (props) => (
   <Icon {...props} name='info'/>
@@ -22,7 +25,8 @@ function DrawerContent({navigation, state}) {
   return (
     <Layout style={{flex: 1, paddingTop: 20}}>
 
-      <Avatar style={styles.avatar} size='giant' source={require('../assets/favicon.png')}/>
+      {/*<Avatar style={styles.avatar} size='giant' source={require('../assets/favicon.png')}/>*/}
+      <Avatar style={styles.avatar} size='giant' source={require('../assets/music.png')}/>
 
       <Layout style={styles.container}>
         <Text>{userName}</Text>
@@ -79,10 +83,10 @@ const styles = StyleSheet.create({
   },
   avatar: {
     alignSelf: 'center',
-    marginTop:  30,
+    marginTop:  windowHeight*0.01,
     marginBottom: 20,
-    width: 150,
-    height: 150
+    width: windowWidth*0.33,
+    height: windowWidth*0.33
   },
   text: {
     flex: 1,
