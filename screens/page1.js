@@ -45,7 +45,6 @@ export default function Page1() {
   return (
     // <Layout style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
     <Layout>
-      {/*<Text appearance={"hint"} style={{marginBottom: 30}} category={"p1"}>This is Page 1</Text>*/}
       <CCard items={cardInfo} callback={{acceptInfo, rejectInfo}}/>
     </Layout>
   )

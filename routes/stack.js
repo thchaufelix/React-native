@@ -2,26 +2,19 @@
 
 import * as React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import {
-  Icon,
-  Button,
-  TopNavigation,
-  Avatar,
-  ApplicationProvider,
-  TopNavigationAction,
-  OverflowMenu, MenuItem, Layout
-} from '@ui-kitten/components';
+import {Avatar, TopNavigationAction, OverflowMenu, MenuItem, Icon} from '@ui-kitten/components';
 import * as eva from "@eva-design/eva";
-import {default as theme} from '../theme.json';
 
 import SignInScreen from '../screens/signIn'
 import RootDrawer from "./drawer";
 import {AuthContext} from '../contexts/userContext'
 
 const DrawerIcon = (props) => (
-  // <Icon name='menu-outline' {...props} />
-  // <Avatar {...props} source={require('../assets/favicon.png')}/>
   <Avatar {...props} source={require('../assets/music.png')}/>
+);
+
+const LogoutIcon = (props) => (
+  <Icon {...props} name='log-out'/>
 );
 
 const Stack = createStackNavigator();
@@ -52,7 +45,7 @@ export default function RootStack() {
   };
 
   const onLogoutPress = ({ index }) => {
-    toggleAuth({userName: '', title: '', isAuthenicated: false})
+    toggleAuth({token: '', isAuthenicated: false})
     setVisible(false);
   };
 
@@ -62,18 +55,21 @@ export default function RootStack() {
 
   return (
     <Stack.Navigator
-      // headerMode={'screen'}
+      headerMode = "screen"
       screenOptions={{
-        headerTintColor: 'white',
-        title: 'Cerebro',
-        headerStyle: {backgroundColor: eva.dark["color-basic-700"]},
+        // headerTintColor: 'black',
+        // title: 'Cerebro',
+        // headerStyle: {backgroundColor: eva.dark["color-basic-700"]},
       }}
     >
       {isAuthenicated ? (
         <Stack.Screen
+
           name="Home"
           component={RootDrawer}
           options={({navigation}) => ({
+            title: 'Cerebro',
+            headerStyle: {backgroundColor: eva.dark["color-basic-300"]},
             headerRight: () => (
               < OverflowMenu
                 value={"left"}
@@ -85,13 +81,14 @@ export default function RootStack() {
               >
                 {/*<MenuItem title='Home'/>*/}
                 {/*<MenuItem title='Details'/>*/}
-                <MenuItem title='Logout' onPress={onLogoutPress}/>
+                <MenuItem title='Logout' onPress={onLogoutPress} accessoryLeft={LogoutIcon}/>
               </OverflowMenu>
             ),
           })}
         />
       ) : (
         <Stack.Screen name="SignIn" component={SignInScreen} options={{
+          headerShown: false,
           transitionSpec: {open: config, close: config,},
         }}/>
       )}

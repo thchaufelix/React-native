@@ -1,7 +1,6 @@
 import {Keyboard, TextInput, SafeAreaView, TouchableWithoutFeedback, StyleSheet} from "react-native";
 import * as React from "react";
 import {Divider, Layout, TopNavigation, Text, Button, Icon, TopNavigationAction} from '@ui-kitten/components';
-import GlobalStyles from "../globals/styles";
 
 const DrawerIcon = (props) => (
   <Icon name='menu-outline' {...props} />

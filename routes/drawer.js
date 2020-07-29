@@ -1,7 +1,9 @@
+import * as React from "react";
+
 import HomeTabs from "./homeTag";
 import SettingsScreen from "../screens/settingScreen";
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import * as React from "react";
+
 import {Dimensions, StyleSheet} from 'react-native';
 import {Drawer, DrawerItem, Layout, Avatar, IndexPath, MenuItem, Icon, Text} from '@ui-kitten/components';
 import {AuthContext} from "../contexts/userContext";
@@ -25,7 +27,6 @@ function DrawerContent({navigation, state}) {
   return (
     <Layout style={{flex: 1, paddingTop: 20}}>
 
-      {/*<Avatar style={styles.avatar} size='giant' source={require('../assets/favicon.png')}/>*/}
       <Avatar style={styles.avatar} size='giant' source={require('../assets/music.png')}/>
 
       <Layout style={styles.container}>
@@ -37,7 +38,7 @@ function DrawerContent({navigation, state}) {
         <MenuItem style={styles.text} accessoryLeft={InfoIcon} title='About'/>
         <MenuItem style={styles.text} accessoryLeft={LogoutIcon} title='Logout'
                   onPress={() => {
-                    toggleAuth({userName: '', title: '', isAuthenicated: false})
+                    toggleAuth({token: '', isAuthenicated: false})
                   }}/>
       </Layout>
 
@@ -46,13 +47,13 @@ function DrawerContent({navigation, state}) {
           selectedIndex={new IndexPath(state.index)}
           onSelect={index => navigation.navigate(state.routeNames[index.row])}>
           <DrawerItem title='Home'/>
-          {/*<DrawerItem title='Notifications'/>*/}
+          <DrawerItem title='Notifications'/>
         </Drawer>
       </Layout>
 
     </Layout>
   )
-};
+}
 
 export default function RootDrawer() {
   return (
@@ -65,10 +66,10 @@ export default function RootDrawer() {
         name="Home"
         component={HomeTabs}
       />
-      {/*<Screen*/}
-      {/*  name="Notifications"*/}
-      {/*  component={SettingsScreen}*/}
-      {/*/>*/}
+      <Screen
+        name="Notifications"
+        component={SettingsScreen}
+      />
     </Navigator>
   )
 }

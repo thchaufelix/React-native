@@ -17,7 +17,7 @@ const TextIcon = (props) => (
 const {Navigator, Screen} = createMaterialTopTabNavigator();
 
 const TopTabBar = ({navigation, state}) => (
-  <TabBar
+  <TabBar style={{paddingVertical:10}}
           selectedIndex={state.index}
           onSelect={index => navigation.navigate(state.routeNames[index])}>
     <Tab title='Home'/>
