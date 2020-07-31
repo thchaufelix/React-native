@@ -7,7 +7,7 @@ export default function CCard({items, callback}) {
   const Header = (props, info) => (
     <View {...props}>
       <Text category='h6'>{info.item.title}</Text>
-      <Text category='s1'>By Wikipedia</Text>
+      <Text category='s1'>By {info.item.applicant}</Text>
     </View>
   );
 
@@ -44,12 +44,7 @@ export default function CCard({items, callback}) {
           status={info.item.status}
         >
           <Text>
-            The Maldives, officially the Republic of Maldives, is a small country in South Asia, located in the
-            Arabian
-            Sea
-            of the Indian Ocean. It lies southwest of Sri Lanka and India, about 1,000 kilometres (620 mi) from the
-            Asian
-            continent
+            {info.item.content}
           </Text>
         </Card>
       )}

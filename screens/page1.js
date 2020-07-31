@@ -1,18 +1,42 @@
 import {Button, Layout, Text} from "@ui-kitten/components";
-import {TextInput, TouchableWithoutFeedback} from "react-native";
+import {Alert, TextInput, TouchableWithoutFeedback} from "react-native";
 import * as React from "react";
 import CCard from "../components/card";
+import axios from "axios";
+import {AuthContext} from "../contexts/userContext"
 
 export default function Page1() {
 
-  const [cardInfo, setCardInfo] = React.useState([
-    {title: "NA/2015/02 ", status: 'basic', id: '1'},
-    {title: "Item 2 ", status: 'basic', id: '2'},
-    {title: "Item 3 ", status: 'basic', id: '3'},
-    {title: "Item 3 ", status: 'basic', id: '4'},
-    {title: "Item 3 ", status: 'basic', id: '5'},
-    {title: "Item 3 ", status: 'basic', id: '6'},
-  ])
+  const {token, userName} = React.useContext(AuthContext)
+
+  React.useEffect(() => {
+    const options = {
+      method: 'GET',
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Token ' + token
+      },
+      // data: qs.stringify(data),
+      url: "http://10.11.53.136:8000/data/all/",
+    };
+    axios(options)
+      .then((response) => {
+        let cardInfos = response.data
+        cardInfos.map((cardInfo) => {
+          let cardStatus = cardInfo.status.status_name
+          cardInfo.status = cardStatus
+          cardInfo.applicant = userName
+          return cardInfo
+        })
+        setCardInfo(cardInfos)
+      }, (error) => {
+        console.log(error)
+      });
+  }, [cardInfo])
+
+  const [cardInfo, setCardInfo] = React.useState([])
 
   const acceptInfo = (id) => {
     const index = id - 1
@@ -47,5 +71,6 @@ export default function Page1() {
     <Layout>
       <CCard items={cardInfo} callback={{acceptInfo, rejectInfo}}/>
     </Layout>
+
   )
 }

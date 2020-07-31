@@ -68,7 +68,7 @@ export default function RootStack() {
           name="Home"
           component={RootDrawer}
           options={({navigation}) => ({
-            title: 'Cerebro',
+            title: 'Inspection',
             headerStyle: {backgroundColor: eva.dark["color-basic-300"]},
             headerRight: () => (
               < OverflowMenu
