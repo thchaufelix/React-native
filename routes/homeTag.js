@@ -4,6 +4,7 @@ import HomeScreen from '../screens/homeScreen'
 import SettingsScreen from "../screens/settingScreen";
 import {BottomNavigation, BottomNavigationTab, TabBar, Tab, Layout, Text, Icon} from '@ui-kitten/components';
 import HomeTopTabs from "./homeTopTab";
+import FormTemplateScreen from "../screens/formTemplateScreen"
 
 const Tag1 = (props) => (
   <Icon name='home' {...props} />
@@ -21,6 +22,7 @@ const BottomTabBar = ({navigation, state}) => (
     onSelect={index => navigation.navigate(state.routeNames[index])}>
     <BottomNavigationTab title='Home' icon={Tag1}/>
     <BottomNavigationTab title='Details' icon={Tag2}/>
+    <BottomNavigationTab title='Upload' icon={Tag2}/>
   </BottomNavigation>
 );
 
@@ -29,6 +31,7 @@ export default function HomeTabs() {
     <Navigator tabBar={props => <BottomTabBar {...props} />}>
       <Screen name="Home" component={HomeTopTabs}/>
       <Screen name="Notifications" component={SettingsScreen}/>
+      <Screen name="Upload" component={FormTemplateScreen}/>
     </Navigator>
 )
   ;

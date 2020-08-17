@@ -62,22 +62,21 @@ export default function SignInScreen({navigation}) {
             validationSchema={reviewSchema}
             // validate={() => shakeIconRef.current.startAnimation()}
             onSubmit={(values, actions) => {
-              // shakeIconRef.current.startAnimation();
-              axios.post("http://10.11.53.136:8000/api-token-auth/", {
+              shakeIconRef.current.startAnimation();
+              axios.post("http://10.13.41.122:8000/api-token-auth/", {
                 username: values.email,
                 password: values.password
               })
                 .then((response) => {
                   toggleAuth({
                     userName: values.email,
-                    title: 'tester',
                     token: response.data.token,
                     isAuthenicated: true
                   });
                 }, (error) => {
-                  console.log(error)
-                  Alert.alert("Somthing Wrong", "Wrong Password")
-                  // Alert.alert("Somthing Wrong", error)
+                  // console.log(error)
+                  Alert.alert("Something Wrong", "Please check the Network or Password!")
+                  // Alert.alert("Something Wrong", error)
                 });
             }}
           >
@@ -117,6 +116,7 @@ export default function SignInScreen({navigation}) {
                   title={"Sign in"}
                   disabled={props.isValidating}
                   accessoryLeft={renderShakeIcon}
+                  disable={props.isSubmitting}
                 >Sign in</Button>
 
                 <Text
@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
     // shadowColor: '#333',
     // shadowOpacity: 0.3,
     // shadowRadius: 2,
-    opacity: 0.76
+    opacity: 0.8
   },
   errorText: {
     textAlign: 'center',

@@ -5,11 +5,14 @@ import CCard from "../components/card";
 import axios from "axios";
 import {AuthContext} from "../contexts/userContext"
 
+
 export default function Page1() {
 
   const {token, userName} = React.useContext(AuthContext)
+  const [refreshing, setRefreshing] = React.useState(false);
+  const [cardInfo, setCardInfo] = React.useState([])
 
-  React.useEffect(() => {
+  const updateCardRecord = () => {
     const options = {
       method: 'GET',
       withCredentials: true,
@@ -19,24 +22,37 @@ export default function Page1() {
         'Authorization': 'Token ' + token
       },
       // data: qs.stringify(data),
-      url: "http://10.11.53.136:8000/data/all/",
+      url: "http://10.13.41.122:8000/formRecord/all/",
     };
     axios(options)
       .then((response) => {
         let cardInfos = response.data
-        cardInfos.map((cardInfo) => {
-          let cardStatus = cardInfo.status.status_name
-          cardInfo.status = cardStatus
-          cardInfo.applicant = userName
-          return cardInfo
+
+        const payloads = cardInfos.map((cardInfo) => {
+          let payload = Object()
+          payload.refNumber = cardInfo.refNumber
+          payload.applicant = cardInfo.applicant
+          payload.submitTo = cardInfo.submitTo
+          payload.content = JSON.parse(cardInfo.content)
+
+          // console.log(payload)
+          return payload
         })
-        setCardInfo(cardInfos)
+        setCardInfo(payloads)
+        setRefreshing(false)
       }, (error) => {
         console.log(error)
       });
-  }, [cardInfo])
+  }
 
-  const [cardInfo, setCardInfo] = React.useState([])
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    updateCardRecord()
+  }, [])
+
+  React.useEffect(() => {
+    updateCardRecord()
+  }, [])
 
   const acceptInfo = (id) => {
     const index = id - 1
@@ -69,7 +85,7 @@ export default function Page1() {
   return (
     // <Layout style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
     <Layout>
-      <CCard items={cardInfo} callback={{acceptInfo, rejectInfo}}/>
+      <CCard items={cardInfo} callback={{acceptInfo, rejectInfo, onRefresh, refreshing}}/>
     </Layout>
 
   )

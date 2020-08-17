@@ -33,16 +33,12 @@ const config = {
 
 
 export default function RootStack() {
-  const [isLogin, setIsLogin] = React.useState(false);
+  // const [isLogin, setIsLogin] = React.useState(false);
   const {isAuthenicated, toggleAuth} = React.useContext(AuthContext);
-
-  // const [selectedIndex, setSelectedIndex] = React.useState(null);
   const [visible, setVisible] = React.useState(false);
 
-  const onItemSelect = (index) => {
-    // setSelectedIndex(index);
-    setVisible(false);
-  };
+  const onItemSelect = (index) => setVisible(false);
+
 
   const onLogoutPress = ({ index }) => {
     toggleAuth({token: '', isAuthenicated: false})
@@ -56,15 +52,9 @@ export default function RootStack() {
   return (
     <Stack.Navigator
       headerMode = "screen"
-      screenOptions={{
-        // headerTintColor: 'black',
-        // title: 'Cerebro',
-        // headerStyle: {backgroundColor: eva.dark["color-basic-700"]},
-      }}
     >
       {isAuthenicated ? (
         <Stack.Screen
-
           name="Home"
           component={RootDrawer}
           options={({navigation}) => ({
@@ -75,12 +65,9 @@ export default function RootStack() {
                 value={"left"}
                 anchor={renderToggleButton}
                 visible={visible}
-                // selectedIndex={selectedIndex}
                 onSelect={onItemSelect}
                 onBackdropPress={() => setVisible(false)}
               >
-                {/*<MenuItem title='Home'/>*/}
-                {/*<MenuItem title='Details'/>*/}
                 <MenuItem title='Logout' onPress={onLogoutPress} accessoryLeft={LogoutIcon}/>
               </OverflowMenu>
             ),

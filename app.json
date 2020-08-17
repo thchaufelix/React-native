@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "myproject2",
+    "description": "this is a testing app",
     "slug": "myproject2",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -17,7 +18,7 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "bundleIdentifier": "com.cerebro.inspectionTest"
     },
     "web": {
       "favicon": "./assets/favicon.png"

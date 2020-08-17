@@ -3,6 +3,8 @@ import {SafeAreaView, Alert, TouchableHighlight} from 'react-native';
 import {Divider, Layout, Text, Button, Icon} from '@ui-kitten/components';
 
 import {AuthContext} from "../contexts/userContext"
+import PDFEditor from "../components/pdfEditor";
+
 
 const FacebookIcon = (props) => (
   <Icon name='home' {...props} />
@@ -10,9 +12,14 @@ const FacebookIcon = (props) => (
 
 export default function HomeScreen({navigation}) {
   const {token} = React.useContext(AuthContext)
+  const [pdfContent, setPdfContent] = React.useState("")
 
-  const onPressHandler = () => {
-    console.log("updated")
+  const onPressHandler = async (e) => {
+    e.preventDefault()
+    console.log("updated!!")
+    setPdfContent(PDFEditor())
+
+    console.log(pdfContent)
   }
 
   return (
