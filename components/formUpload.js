@@ -20,9 +20,11 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 
-export default function FormUpload({template}) {
+export default function FormUpload({template, callback}) {
+  // User Information
   const {token} = React.useContext(AuthContext)
 
+  // Load Form Template at Begin
   React.useEffect(() => {
     const options = {
       method: 'GET',
@@ -41,11 +43,13 @@ export default function FormUpload({template}) {
       }, (error) => {
         console.log(error)
       });
-  }, [formTemplate])
+  }, [])
 
+  // State Init
   const [singleFile, setSingleFile] = React.useState(null)
   const [formTemplate, setFormTemplate] = React.useState([])
 
+  // Validation Filed Init
   const tempReviewSchema = {}
   {
     formTemplate.forEach(({name, type, require}) => {
@@ -56,6 +60,7 @@ export default function FormUpload({template}) {
   }
   const reviewSchema = yup.object(tempReviewSchema)
 
+  // On Submit Handler
   let uploadImage = async (values) => {
     //Check if any file is selected or not
     // console.log(values)
@@ -87,6 +92,7 @@ export default function FormUpload({template}) {
       axios(options)
         .then(() => {
           alert("Upload Success")
+          callback.closeModal()
         }, () => {
           Alert.alert("Something Wrong", "Please check the Network")
         })
@@ -96,6 +102,7 @@ export default function FormUpload({template}) {
     }
   }
 
+  // Image Picker
   let selectFile = async () => {
     //Opening Document Picker to select one file
     try {
@@ -143,8 +150,8 @@ export default function FormUpload({template}) {
                   <Text style={styles.header} category={"h1"}>Request for Inspection (RI) Form</Text>
                   <Divider/>
 
+                  {/* Render Handler (3 types of input field) */}
                   <RenderHandler formTemplate={formTemplate} props={props}/>
-
 
                   <Layout style={{marginTop: 10, marginBottom: 10}}/>
                   <Layout style={{alignItems: 'center', flexDirection: 'row', justifyContent: "space-around"}}>
@@ -155,7 +162,7 @@ export default function FormUpload({template}) {
                       disable={props.isSubmitting}
                     >Submit</Button>
 
-                    {/*This is the Button for Picking Image from Local Device Storage*/}
+                    {/* This is the Button for Picking Image from Local Device Storage */}
                     <Button
                       style={styles.buttonStyle}
                       activeOpacity={0.5}

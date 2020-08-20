@@ -34,14 +34,14 @@ const config = {
 
 export default function RootStack() {
   // const [isLogin, setIsLogin] = React.useState(false);
-  const {isAuthenicated, toggleAuth} = React.useContext(AuthContext);
+  const {isAuthenicated, setUserInfo} = React.useContext(AuthContext);
   const [visible, setVisible] = React.useState(false);
 
   const onItemSelect = (index) => setVisible(false);
 
 
   const onLogoutPress = ({ index }) => {
-    toggleAuth({token: '', isAuthenicated: false})
+    setUserInfo({token: '', isAuthenicated: false})
     setVisible(false);
   };
 

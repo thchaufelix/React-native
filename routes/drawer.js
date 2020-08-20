@@ -22,7 +22,7 @@ const LogoutIcon = (props) => (
 const {Navigator, Screen} = createDrawerNavigator();
 
 function DrawerContent({navigation, state}) {
-  const {userName, title, toggleAuth} = React.useContext(AuthContext)
+  const {userName, title, setUserInfo} = React.useContext(AuthContext)
 
   return (
     <Layout style={{flex: 1, paddingTop: 20}}>
@@ -38,7 +38,7 @@ function DrawerContent({navigation, state}) {
         <MenuItem style={styles.text} accessoryLeft={InfoIcon} title='About'/>
         <MenuItem style={styles.text} accessoryLeft={LogoutIcon} title='Logout'
                   onPress={() => {
-                    toggleAuth({token: '', isAuthenicated: false})
+                    setUserInfo({token: '', isAuthenicated: false})
                   }}/>
       </Layout>
 

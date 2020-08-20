@@ -35,7 +35,7 @@ const reviewSchema = yup.object({
 
 export default function SignInScreen({navigation}) {
   const shakeIconRef = React.useRef();
-  const {toggleAuth, userName} = React.useContext(AuthContext);
+  const {setUserInfo, userName} = React.useContext(AuthContext);
 
   // React.useEffect(() => {
   //   shakeIconRef.current.startAnimation();
@@ -68,7 +68,7 @@ export default function SignInScreen({navigation}) {
                 password: values.password
               })
                 .then((response) => {
-                  toggleAuth({
+                  setUserInfo({
                     userName: values.email,
                     token: response.data.token,
                     isAuthenicated: true
