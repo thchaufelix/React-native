@@ -19,7 +19,7 @@
     "@react-pdf/renderer": "^1.6.10",
     "@ui-kitten/components": "^5.0.0",
     "@ui-kitten/eva-icons": "^5.0.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "expo": "~38.0.8",
     "expo-constants": "^9.1.1",
     "expo-document-picker": "~8.2.1",
